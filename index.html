@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Flip Cards</title>
+    <script src="./companion.js" data-variant="Knight_3" data-persist-position="true"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #000000 0%, #0d0d0d 50%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .flip-card {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            perspective: 1500px;
+            cursor: pointer;
+            transition: transform 0.3s ease-out;
+        }
+
+        .flip-card:hover {
+            transform: translateZ(20px);
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner,
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(25deg) rotateX(15deg);
+        }
+
+        .flip-card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(25, 25, 25, 0.95) 100%);
+            border: 1px solid rgba(80, 60, 200, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Profile Card Styles */
+        .profile-front {
+            flex-direction: column;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .profile-name {
+            font-size: 1.1em;
+            font-weight: 700;
+            background: linear-gradient(45deg, #39b0ff, #4080e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .profile-title {
+            font-size: 0.7em;
+            color: #ffffff;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Music Player Styles */
+        .music-player {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .song-info {
+            text-align: center;
+        }
+
+        .song-title {
+            font-size: 0.9em;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .song-artist {
+            font-size: 0.65em;
+            color: #5090ff;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6a4cd4, #4080e0);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            color: #707070;
+            font-size: 0.7em;
+            margin-top: 3px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .control-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #6a4cd4, #4080e0);
+            color: white;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(106, 76, 212, 0.5);
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(106, 76, 212, 0.7);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-btn.play-pause {
+            width: 40px;
+            height: 40px;
+            font-size: 1em;
+        }
+
+        .error-message {
+            font-size: 0.7em;
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                gap: 12px;
+            }
+
+            .flip-card-front {
+                padding: 15px;
+            }
+
+            .profile-name {
+                font-size: 1em;
+            }
+
+            .profile-title {
+                font-size: 0.65em;
+            }
+
+            .song-title {
+                font-size: 0.85em;
+            }
+
+            .song-artist {
+                font-size: 0.6em;
+            }
+
+            .control-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.75em;
+            }
+
+            .control-btn.play-pause {
+                width: 36px;
+                height: 36px;
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-name {
+                font-size: 0.9em;
+            }
+
+            .profile-title {
+                font-size: 0.6em;
+            }
+
+            .song-title {
+                font-size: 0.8em;
+            }
+
+            .controls {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="container">
+        <!-- Profile Card -->
+        <div class="flip-card" id="profileCard">
+            <div class="flip-card-inner">
+                <div class="flip-card-front profile-front">
+                    <div>
+                        <div class="profile-name">Igimonsan</div>
+                        <div class="profile-title">Orang Gabut</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Music Player Card -->
+        <div class="flip-card" id="musicCard">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="music-player">
+                        <div class="song-info">
+                            <div class="song-title" id="songTitle">Space Odyssey</div>
+                            <div class="song-artist">Cosmic Beats</div>
+                        </div>
+                        <div style="width: 100%;">
+                            <div class="progress-container" id="progressContainer">
+                                <div class="progress-bar" id="progressBar"></div>
+                            </div>
+                            <div class="time-display">
+                                <span id="currentTime">0:00</span>
+                                <span id="duration">0:00</span>
+                            </div>
+                        </div>
+                        <div class="controls">
+                            <button class="control-btn" id="prevBtn">⏮</button>
+                            <button class="control-btn play-pause" id="playPauseBtn">▶</button>
+                            <button class="control-btn" id="nextBtn">⏭</button>
+                        </div>
+                        <div class="error-message" id="errorMessage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
+
+    <script>
+        // Particle System
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 150;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.4 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 3D Tilt Effect for Desktop
+        const profileCard = document.getElementById('profileCard');
+        const musicCard = document.getElementById('musicCard');
+
+        function handleMouseMove(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / centerY * 15;
+            const rotateY = (x - centerX) / centerX * 25;
+
+            card.querySelector('.flip-card-inner').style.transform =
+                `rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+        }
+
+        function handleMouseLeave(card) {
+            card.querySelector('.flip-card-inner').style.transform =
+                'rotateX(0deg) rotateY(0deg)';
+        }
+
+        profileCard.addEventListener('mousemove', (e) => handleMouseMove(e, profileCard));
+        profileCard.addEventListener('mouseleave', () => handleMouseLeave(profileCard));
+
+        musicCard.addEventListener('mousemove', (e) => handleMouseMove(e, musicCard));
+        musicCard.addEventListener('mouseleave', () => handleMouseLeave(musicCard));
+
+        // Touch Support for Mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }
+
+        function handleTouchMove(e, card) {
+            const touchX = e.touches[0].clientX;
+            const touchY = e.touches[0].clientY;
+
+            const diffX = (touchX - touchStartX) / 10;
+            const diffY = (touchY - touchStartY) / 10;
+
+            card.querySelector('.flip-card-inner').style.transform =
+                `rotateX(${-diffY}deg) rotateY(${diffX}deg)`;
+        }
+
+        function handleTouchEnd(card) {
+            card.querySelector('.flip-card-inner').style.transform =
+                'rotateX(0deg) rotateY(0deg)';
+        }
+
+        profileCard.addEventListener('touchstart', handleTouchStart);
+        profileCard.addEventListener('touchmove', (e) => handleTouchMove(e, profileCard));
+        profileCard.addEventListener('touchend', () => handleTouchEnd(profileCard));
+
+        musicCard.addEventListener('touchstart', handleTouchStart);
+        musicCard.addEventListener('touchmove', (e) => handleTouchMove(e, musicCard));
+        musicCard.addEventListener('touchend', () => handleTouchEnd(musicCard));
+
+        // Music Player Functionality
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        const songTitle = document.getElementById('songTitle');
+        const errorMessage = document.getElementById('errorMessage');
+
+        let currentSongIndex = 0;
+
+        const playlist = [
+            { title: 'Space Odyssey', file: 'assets/lagu.mpeg' },
+            { title: 'Acido', file: 'assets/lagu2.mpeg' },
+            { title: 'Lunar Waves', file: 'assets/lagu3.mpeg' },
+            { title: 'Amor na praia', file: 'assets/lagu4.mpeg' }
+        ];
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function loadSong(index) {
+            const song = playlist[index];
+            audioPlayer.src = song.file;
+            songTitle.textContent = song.title;
+            errorMessage.textContent = '';
+
+            audioPlayer.load();
+        }
+
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play().catch(err => {
+                    console.error('Error playing audio:', err);
+                    errorMessage.textContent = 'Error: File tidak ditemukan';
+                });
+                playPauseBtn.textContent = '⏸';
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.textContent = '▶';
+            }
+        }
+
+        playPauseBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlayPause();
+        });
+
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+            loadSong(currentSongIndex);
+            if (!audioPlayer.paused) {
+                audioPlayer.play().catch(err => {
+                    errorMessage.textContent = 'Error: File tidak ditemukan';
+                });
+            }
+        });
+
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            loadSong(currentSongIndex);
+            if (!audioPlayer.paused) {
+                audioPlayer.play().catch(err => {
+                    errorMessage.textContent = 'Error: File tidak ditemukan';
+                });
+            }
+        });
+
+        progressContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (audioPlayer.duration) {
+                const rect = progressContainer.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audioPlayer.currentTime = percent * audioPlayer.duration;
+            }
+        });
+
+        // Audio event listeners
+        audioPlayer.addEventListener('loadedmetadata', () => {
+            durationDisplay.textContent = formatTime(audioPlayer.duration);
+        });
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            if (audioPlayer.duration) {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = `${percent}%`;
+                currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+            }
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            loadSong(currentSongIndex);
+            audioPlayer.play().catch(err => {
+                errorMessage.textContent = 'Error: File tidak ditemukan';
+                playPauseBtn.textContent = '▶';
+            });
+        });
+
+        audioPlayer.addEventListener('error', (e) => {
+            errorMessage.textContent = 'Error: File tidak ditemukan';
+            playPauseBtn.textContent = '▶';
+        });
+
+        audioPlayer.addEventListener('play', () => {
+            playPauseBtn.textContent = '⏸';
+        });
+
+        audioPlayer.addEventListener('pause', () => {
+            playPauseBtn.textContent = '▶';
+        });
+
+        // Load first song
+        loadSong(currentSongIndex);
+    </script>
+</body>
+
+</html>

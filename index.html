@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Flip Cards</title>
-    <script src="./companion.js" data-variant="Knight_3" data-persist-position="true"></script>
     <style>
         * {
             margin: 0;
@@ -85,9 +84,30 @@
 
         /* Profile Card Styles */
         .profile-front {
+            flex-direction: row;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-image-container {
+            flex-shrink: 0;
+        }
+
+        .profile-image {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(80, 60, 200, 0.5);
+            box-shadow: 0 4px 15px rgba(106, 76, 212, 0.4);
+        }
+
+        .profile-info {
+            display: flex;
             flex-direction: column;
-            text-align: center;
-            gap: 20px;
+            gap: 5px;
+            text-align: left;
         }
 
         .profile-name {
@@ -97,7 +117,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 5px;
         }
 
         .profile-title {
@@ -201,6 +220,65 @@
             margin-top: 5px;
         }
 
+        /* Companion Control Panel */
+        .companion-panel {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .companion-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid rgba(80, 60, 200, 0.3);
+            border-radius: 6px;
+            background: rgba(20, 20, 20, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 4px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .companion-btn:hover {
+            border-color: rgba(106, 76, 212, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(106, 76, 212, 0.4);
+        }
+
+        .companion-btn.active {
+            border-color: #6a4cd4;
+            background: linear-gradient(135deg, rgba(106, 76, 212, 0.4), rgba(64, 128, 224, 0.4));
+            box-shadow: 0 0 15px rgba(106, 76, 212, 0.7);
+        }
+
+        .companion-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0.9);
+            transition: filter 0.3s ease;
+        }
+
+        .companion-btn.active img {
+            filter: brightness(1.2);
+        }
+
+        .companion-btn:active {
+            transform: scale(0.95);
+        }
+
+        .companion-btn-fallback {
+            font-size: 1.2em;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -209,6 +287,11 @@
 
             .flip-card-front {
                 padding: 15px;
+            }
+
+            .profile-image {
+                width: 60px;
+                height: 60px;
             }
 
             .profile-name {
@@ -241,6 +324,11 @@
         }
 
         @media (max-width: 480px) {
+            .profile-image {
+                width: 50px;
+                height: 50px;
+            }
+
             .profile-name {
                 font-size: 0.9em;
             }
@@ -256,6 +344,15 @@
             .controls {
                 gap: 10px;
             }
+
+            .companion-btn {
+                width: 32px;
+                height: 32px;
+            }
+
+            .companion-btn-fallback {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -268,7 +365,10 @@
         <div class="flip-card" id="profileCard">
             <div class="flip-card-inner">
                 <div class="flip-card-front profile-front">
-                    <div>
+                    <div class="profile-image-container">
+                        <img src="assets/img.jpg" alt="Profile" class="profile-image">
+                    </div>
+                    <div class="profile-info">
                         <div class="profile-name">Igimonsan</div>
                         <div class="profile-title">Orang Gabut</div>
                     </div>
@@ -303,6 +403,46 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Companion Control Panel -->
+        <div class="companion-panel">
+            <button class="companion-btn" data-companion="oneko" title="Oneko Cat">
+                <img src="assets/oneko.png" alt="Oneko"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>🐱</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Knight_1" title="Knight 1">
+                <img src="assets/Knight_1.png" alt="Knight 1"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>⚔️</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Knight_2" title="Knight 2">
+                <img src="assets/Knight_2.png" alt="Knight 2"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>🛡️</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Knight_3" title="Knight 3">
+                <img src="assets/Knight_3.png" alt="Knight 3"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>⚔️</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Fighter" title="Fighter">
+                <img src="assets/Fighter.png" alt="Fighter"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>👊</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Fire_Wizard" title="Fire Wizard">
+                <img src="assets/Fire_Wizard.png" alt="Fire Wizard"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>🔥</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Lightning_Mage" title="Lightning Mage">
+                <img src="assets/Lightning_Mage.png" alt="Lightning Mage"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>⚡</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Samurai" title="Samurai">
+                <img src="assets/Samurai.png" alt="Samurai"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>🗡️</span>';">
+            </button>
+            <button class="companion-btn" data-companion="Shinobi" title="Shinobi">
+                <img src="assets/Shinobi.png" alt="Shinobi"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'companion-btn-fallback\'>🥷</span>';">
+            </button>
         </div>
     </div>
 
@@ -487,22 +627,34 @@
 
         prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            const wasPlaying = !audioPlayer.paused;
+            audioPlayer.pause();
+            playPauseBtn.textContent = '▶';
+
             currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
             loadSong(currentSongIndex);
-            if (!audioPlayer.paused) {
+
+            if (wasPlaying) {
                 audioPlayer.play().catch(err => {
                     errorMessage.textContent = 'Error: File tidak ditemukan';
+                    playPauseBtn.textContent = '▶';
                 });
             }
         });
 
         nextBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            const wasPlaying = !audioPlayer.paused;
+            audioPlayer.pause();
+            playPauseBtn.textContent = '▶';
+
             currentSongIndex = (currentSongIndex + 1) % playlist.length;
             loadSong(currentSongIndex);
-            if (!audioPlayer.paused) {
+
+            if (wasPlaying) {
                 audioPlayer.play().catch(err => {
                     errorMessage.textContent = 'Error: File tidak ditemukan';
+                    playPauseBtn.textContent = '▶';
                 });
             }
         });
@@ -553,6 +705,83 @@
 
         // Load first song
         loadSong(currentSongIndex);
+
+        // Companion Script Manager
+        let activeCompanionScript = null;
+        let activeButton = null;
+
+        const companionButtons = document.querySelectorAll('.companion-btn');
+
+        function removeActiveCompanion() {
+            // Remove existing companion script
+            if (activeCompanionScript) {
+                activeCompanionScript.remove();
+                activeCompanionScript = null;
+            }
+
+            // Remove active class from all buttons
+            companionButtons.forEach(btn => btn.classList.remove('active'));
+            activeButton = null;
+
+            // Remove any companion elements from DOM
+            const companions = document.querySelectorAll('[id^="oneko"], [id^="companion"], [class*="oneko"], [class*="companion"]');
+            companions.forEach(el => el.remove());
+
+            // Clear any intervals/timers related to companions
+            // This helps prevent lingering animations
+            for (let i = 1; i < 99999; i++) {
+                window.clearInterval(i);
+            }
+        }
+
+        function loadCompanionScript(variant, button) {
+            // Remove previous companion first
+            removeActiveCompanion();
+
+            // Small delay to ensure cleanup is complete
+            setTimeout(() => {
+                // Create and load new script
+                const script = document.createElement('script');
+                script.id = 'active-companion-script'; // Add unique ID
+
+                if (variant === 'oneko') {
+                    script.src = './oneko.js';
+                } else {
+                    script.src = './companion.js';
+                    script.setAttribute('data-variant', variant);
+                    script.setAttribute('data-persist-position', 'true');
+                }
+
+                script.onload = () => {
+                    console.log(`Loaded companion: ${variant}`);
+                };
+
+                script.onerror = () => {
+                    console.error(`Failed to load companion: ${variant}`);
+                    button.classList.remove('active');
+                };
+
+                document.body.appendChild(script);
+                activeCompanionScript = script;
+                activeButton = button;
+                button.classList.add('active');
+            }, 100);
+        }
+
+        companionButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const variant = button.getAttribute('data-companion');
+
+                // Toggle off if clicking active button
+                if (button.classList.contains('active')) {
+                    removeActiveCompanion();
+                } else {
+                    // Load new companion (will automatically remove previous one)
+                    loadCompanionScript(variant, button);
+                }
+            });
+        });
     </script>
 </body>
 

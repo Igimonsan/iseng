@@ -279,79 +279,164 @@
             font-size: 1.2em;
         }
 
-        /* Responsive Design */
+        /* Responsive Design - Mobile First Approach */
         @media (max-width: 768px) {
+            body {
+                padding: 30px 20px;
+            }
+
             .container {
-                gap: 12px;
+                max-width: 420px;
+                gap: 20px;
             }
 
             .flip-card-front {
-                padding: 15px;
+                padding: 24px;
             }
 
+            /* Profile Card - Mobile */
             .profile-image {
-                width: 60px;
-                height: 60px;
+                width: 120px;
+                height: 120px;
             }
 
             .profile-name {
-                font-size: 1em;
+                font-size: 1.4em;
             }
 
             .profile-title {
-                font-size: 0.65em;
-            }
-
-            .song-title {
                 font-size: 0.85em;
             }
 
+            /* Music Player - Mobile */
+            .song-title {
+                font-size: 1.1em;
+            }
+
             .song-artist {
-                font-size: 0.6em;
+                font-size: 0.8em;
+            }
+
+            .progress-container {
+                height: 5px;
+            }
+
+            .time-display {
+                font-size: 0.85em;
+                margin-top: 6px;
             }
 
             .control-btn {
-                width: 28px;
-                height: 28px;
-                font-size: 0.75em;
+                width: 44px;
+                height: 44px;
+                font-size: 1em;
             }
 
             .control-btn.play-pause {
-                width: 36px;
-                height: 36px;
-                font-size: 0.95em;
+                width: 56px;
+                height: 56px;
+                font-size: 1.3em;
             }
-        }
 
-        @media (max-width: 480px) {
-            .profile-image {
+            .controls {
+                gap: 20px;
+            }
+
+            .error-message {
+                font-size: 0.85em;
+            }
+
+            /* Companion Panel - Mobile */
+            .companion-panel {
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .companion-btn {
                 width: 50px;
                 height: 50px;
             }
 
+            .companion-btn-fallback {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .container {
+                max-width: 380px;
+                gap: 18px;
+            }
+
+            .flip-card-front {
+                padding: 22px;
+            }
+
+            .profile-image {
+                width: 90px;
+                height: 90px;
+            }
+
             .profile-name {
-                font-size: 0.9em;
+                font-size: 1.3em;
             }
 
             .profile-title {
-                font-size: 0.6em;
-            }
-
-            .song-title {
                 font-size: 0.8em;
             }
 
+            .song-title {
+                font-size: 1.05em;
+            }
+
+            .song-artist {
+                font-size: 0.75em;
+            }
+
+            .control-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 0.95em;
+            }
+
+            .control-btn.play-pause {
+                width: 54px;
+                height: 54px;
+                font-size: 1.25em;
+            }
+
             .controls {
-                gap: 10px;
+                gap: 18px;
             }
 
             .companion-btn {
-                width: 32px;
-                height: 32px;
+                width: 48px;
+                height: 48px;
             }
 
             .companion-btn-fallback {
-                font-size: 1em;
+                font-size: 1.4em;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 360px) {
+            .container {
+                max-width: 340px;
+            }
+
+            .profile-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .companion-btn {
+                width: 44px;
+                height: 44px;
             }
         }
     </style>
@@ -742,7 +827,7 @@
             setTimeout(() => {
                 // Create and load new script
                 const script = document.createElement('script');
-                script.id = 'active-companion-script'; // Add unique ID
+                script.id = 'active-companion-script';
 
                 if (variant === 'oneko') {
                     script.src = './oneko.js';

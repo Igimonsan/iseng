@@ -6,25 +6,40 @@
 
 #spectrum-canvas {
     margin-left: 3.8px;
-    width : 100% !important;
+    width: 100% !important;
     height: 35px !important;
     margin-right: 2px !important;
     display: block !important;
     background: transparent !important;
-    transform: translateZ(0) !important;
+    transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
     backface-visibility: hidden !important;
     -webkit-backface-visibility: hidden !important;
-    -webkit-transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
     will-change: auto !important;
     position: relative !important;
 }
 
 /* Stabilkan profile info container */
 .profile-info {
-    transform: translateZ(0);
+    transform: translateZ(0) rotateX(0deg) rotateY(0deg);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
+    -webkit-transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+    transform-style: flat !important;
+}
+
+/* Stabilkan profile image */
+.profile-image-container {
+    transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: flat !important;
+}
+
+.profile-image {
+    transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Stabilkan flip card inner */
@@ -139,6 +154,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    transform: translateZ(0) rotateX(0deg) rotateY(0deg);
 }
 
 .profile-title {
@@ -147,6 +163,7 @@ body {
     color: #ffffff;
     font-weight: 300;
     letter-spacing: 1px;
+    transform: translateZ(0) rotateX(0deg) rotateY(0deg);
 }
 
 /* Music Player Styles */
@@ -313,25 +330,30 @@ body {
         gap: 20px;
     }
 
-        #spectrum-canvas {
-           
-            width: 100% !important;
-            height: 35px !important;
-            margin-left: 6.8px !important;
-            display: block !important;
-            transform: translateZ(0) !important;
-            backface-visibility: hidden !important;
-            -webkit-backface-visibility: hidden !important;
-            -webkit-transform: translateZ(0) !important;
-            will-change: auto !important;
-            position: relative !important;
-        }
-    
-        .profile-info {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
+    #spectrum-canvas {
+        width: 100% !important;
+        height: 35px !important;
+        margin-left: 6.8px !important;
+        display: block !important;
+        transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+        -webkit-transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
+        will-change: auto !important;
+        position: relative !important;
+    }
+
+    .profile-info {
+        transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform-style: flat !important;
+    }
+
+    .profile-image-container {
+        transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+        transform-style: flat !important;
+    }
 
     .flip-card-front {
         padding: 24px;
@@ -344,7 +366,6 @@ body {
     }
 
     .profile-name {
-        
         margin-left: 37px;
         font-size: 1.4em;
     }
@@ -455,10 +476,10 @@ body {
         font-size: 1.25em;
     }
 
-         #spectrum-canvas {
-             transform: translateZ(0) !important;
-             -webkit-transform: translateZ(0) !important;
-         }
+    #spectrum-canvas {
+        transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
+        -webkit-transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
+    }
 
     .controls {
         gap: 18px;

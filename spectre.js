@@ -42,6 +42,8 @@ class AudioSpectrum {
                 display: block;
                 border-radius: 0;
                 background: transparent;
+                transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
+                backface-visibility: hidden !important;
             `;
 
             // Insert canvas in profile info (after profile title)
@@ -50,6 +52,11 @@ class AudioSpectrum {
                 profileInfo.appendChild(this.canvas);
             }
         }
+
+        // Force flat transform on canvas
+        this.canvas.style.transform = 'translateZ(0) rotateX(0deg) rotateY(0deg)';
+        this.canvas.style.transformStyle = 'flat';
+        this.canvas.style.backfaceVisibility = 'hidden';
 
         // Set canvas resolution
         const dpr = window.devicePixelRatio || 1;
@@ -63,7 +70,35 @@ class AudioSpectrum {
         // Initialize Web Audio API
         this.setupAudio();
 
+        // Ensure canvas stays flat
+        this.ensureFlatCanvas();
+
         this.isInitialized = true;
+    }
+
+    ensureFlatCanvas() {
+        // Continuously enforce flat transform
+        const enforceFlat = () => {
+            if (this.canvas) {
+                this.canvas.style.transform = 'translateZ(0) rotateX(0deg) rotateY(0deg)';
+                this.canvas.style.transformStyle = 'flat';
+            }
+        };
+
+        // Run immediately
+        enforceFlat();
+
+        // Set up observer to watch for style changes
+        if (this.canvas && window.MutationObserver) {
+            const observer = new MutationObserver(enforceFlat);
+            observer.observe(this.canvas, {
+                attributes: true,
+                attributeFilter: ['style']
+            });
+        }
+
+        // Also check periodically
+        setInterval(enforceFlat, 100);
     }
 
     setupAudio() {

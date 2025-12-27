@@ -4,6 +4,35 @@
     box-sizing: border-box;
 }
 
+#spectrum-canvas {
+    margin-left: 3.8px;
+    width : 100% !important;
+    height: 35px !important;
+    margin-right: 2px !important;
+    display: block !important;
+    background: transparent !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    -webkit-transform: translateZ(0) !important;
+    will-change: auto !important;
+    position: relative !important;
+}
+
+/* Stabilkan profile info container */
+.profile-info {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+}
+
+/* Stabilkan flip card inner */
+.flip-card-inner {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
@@ -103,9 +132,9 @@ body {
 }
 
 .profile-name {
-    margin-bottom: -5px;
-    font-size: 1.5em;
-    font-weight: 650;
+    margin-left: 20px;
+    font-size: 1.1em;
+    font-weight: 700;
     background: linear-gradient(45deg, #39b0ff, #4080e0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -113,8 +142,8 @@ body {
 }
 
 .profile-title {
-    margin-left: 20px;
-    font-size: 0.8em;
+    margin-left: 28px;
+    font-size: 0.7em;
     color: #ffffff;
     font-weight: 300;
     letter-spacing: 1px;
@@ -284,6 +313,26 @@ body {
         gap: 20px;
     }
 
+        #spectrum-canvas {
+           
+            width: 100% !important;
+            height: 35px !important;
+            margin-left: 6.8px !important;
+            display: block !important;
+            transform: translateZ(0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
+            -webkit-transform: translateZ(0) !important;
+            will-change: auto !important;
+            position: relative !important;
+        }
+    
+        .profile-info {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
     .flip-card-front {
         padding: 24px;
     }
@@ -295,10 +344,13 @@ body {
     }
 
     .profile-name {
+        
+        margin-left: 37px;
         font-size: 1.4em;
     }
 
     .profile-title {
+        margin-left: 49px;
         font-size: 0.85em;
     }
 
@@ -402,6 +454,11 @@ body {
         height: 54px;
         font-size: 1.25em;
     }
+
+         #spectrum-canvas {
+             transform: translateZ(0) !important;
+             -webkit-transform: translateZ(0) !important;
+         }
 
     .controls {
         gap: 18px;

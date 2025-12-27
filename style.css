@@ -103,8 +103,9 @@ body {
 }
 
 .profile-name {
-    font-size: 1.1em;
-    font-weight: 700;
+    margin-bottom: -5px;
+    font-size: 1.5em;
+    font-weight: 650;
     background: linear-gradient(45deg, #39b0ff, #4080e0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -112,7 +113,8 @@ body {
 }
 
 .profile-title {
-    font-size: 0.7em;
+    margin-left: 20px;
+    font-size: 0.8em;
     color: #ffffff;
     font-weight: 300;
     letter-spacing: 1px;

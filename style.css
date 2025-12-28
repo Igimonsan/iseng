@@ -638,7 +638,8 @@ body {
     }
 
     .progress-container {
-        margin-bottom: -50px;
+        margin-top: 20px;
+        margin-bottom: -33px;
         height: 2px;
     }
 
@@ -657,12 +658,12 @@ body {
     #musicCard .song-artist {
         font-family: 'Share Tech Mono', monospace;
         margin-top: 9px;
-        margin-bottom: 20px;
+        margin-bottom: -10px;
         font-size: 0.6em;
     }
 
     #musicCard .control-btn {
-        margin-bottom: -5px;
+        margin-bottom: 5px;
         width: 34px;
         height: 34px;
         font-size: 1em;

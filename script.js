@@ -60,18 +60,16 @@ window.addEventListener('resize', () => {
 const profileImage = document.getElementById('profileImage');
 const profileImageContainer = document.getElementById('profileImageContainer');
 let currentProfileIndex = 1;
-const totalProfileImages = 10; // Sesuaikan dengan jumlah gambar yang kamu punya
+const totalProfileImages = 10;
 
 profileImageContainer.addEventListener('click', (e) => {
     e.stopPropagation();
 
-    // Next image
     currentProfileIndex++;
     if (currentProfileIndex > totalProfileImages) {
         currentProfileIndex = 1;
     }
 
-    // Change image with fade effect
     profileImage.style.opacity = '0';
 
     setTimeout(() => {
@@ -80,7 +78,6 @@ profileImageContainer.addEventListener('click', (e) => {
     }, 200);
 });
 
-// Add cursor pointer style
 profileImageContainer.style.cursor = 'pointer';
 
 // 3D Tilt Effect for Desktop
@@ -158,7 +155,13 @@ const durationDisplay = document.getElementById('duration');
 const songTitle = document.getElementById('songTitle');
 const errorMessage = document.getElementById('errorMessage');
 
+// Playlist Menu
+const playlistMenuBtn = document.getElementById('playlistMenuBtn');
+const playlistDropdown = document.getElementById('playlistDropdown');
+const playlistItems = document.getElementById('playlistItems');
+
 let currentSongIndex = 0;
+let isPlaylistEnabled = false; // Track if playlist is enabled
 
 const playlist = [
     { title: 'Space Odyssey', file: 'Assets/lagu.mp3' },
@@ -166,6 +169,49 @@ const playlist = [
     { title: 'Lunar Waves', file: 'Assets/lagu3.mp3' },
     { title: 'Amor na praia', file: 'Assets/lagu4.mp3' }
 ];
+
+// Generate Playlist Items
+function generatePlaylistItems() {
+    playlistItems.innerHTML = '';
+    playlist.forEach((song, index) => {
+        const item = document.createElement('div');
+        item.className = 'playlist-item';
+        if (index === currentSongIndex) {
+            item.classList.add('active');
+        }
+        item.textContent = song.title;
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            loadAndPlaySong(index);
+            togglePlaylistMenu();
+        });
+        playlistItems.appendChild(item);
+    });
+}
+
+// Toggle Playlist Menu
+function togglePlaylistMenu() {
+    if (!isPlaylistEnabled) {
+        return; // Don't open if not enabled
+    }
+    playlistDropdown.classList.toggle('show');
+    playlistMenuBtn.classList.toggle('active');
+}
+
+playlistMenuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isPlaylistEnabled) {
+        togglePlaylistMenu();
+    }
+});
+
+// Close playlist when clicking outside
+document.addEventListener('click', (e) => {
+    if (!playlistDropdown.contains(e.target) && !playlistMenuBtn.contains(e.target)) {
+        playlistDropdown.classList.remove('show');
+        playlistMenuBtn.classList.remove('active');
+    }
+});
 
 function formatTime(seconds) {
     if (isNaN(seconds)) return '0:00';
@@ -181,6 +227,31 @@ function loadSong(index) {
     errorMessage.textContent = '';
 
     audioPlayer.load();
+
+    // Update playlist items
+    document.querySelectorAll('.playlist-item').forEach((item, i) => {
+        if (i === index) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+function loadAndPlaySong(index) {
+    const wasPlaying = !audioPlayer.paused;
+    audioPlayer.pause();
+    playPauseBtn.textContent = '▶';
+
+    currentSongIndex = index;
+    loadSong(currentSongIndex);
+
+    if (wasPlaying) {
+        audioPlayer.play().catch(err => {
+            errorMessage.textContent = 'Error: File tidak ditemukan';
+            playPauseBtn.textContent = '▶';
+        });
+    }
 }
 
 function togglePlayPause() {
@@ -279,7 +350,8 @@ audioPlayer.addEventListener('pause', () => {
     playPauseBtn.textContent = '▶';
 });
 
-// Load first song
+// Initialize
+generatePlaylistItems();
 loadSong(currentSongIndex);
 
 // Companion Script Manager
@@ -289,34 +361,26 @@ let activeButton = null;
 const companionButtons = document.querySelectorAll('.companion-btn');
 
 function removeActiveCompanion() {
-    // Remove existing companion script
     if (activeCompanionScript) {
         activeCompanionScript.remove();
         activeCompanionScript = null;
     }
 
-    // Remove active class from all buttons
     companionButtons.forEach(btn => btn.classList.remove('active'));
     activeButton = null;
 
-    // Remove any companion elements from DOM
     const companions = document.querySelectorAll('[id^="oneko"], [id^="companion"], [class*="oneko"], [class*="companion"]');
     companions.forEach(el => el.remove());
 
-    // Clear any intervals/timers related to companions
-    // This helps prevent lingering animations
     for (let i = 1; i < 99999; i++) {
         window.clearInterval(i);
     }
 }
 
 function loadCompanionScript(variant, button) {
-    // Remove previous companion first
     removeActiveCompanion();
 
-    // Small delay to ensure cleanup is complete
     setTimeout(() => {
-        // Create and load new script
         const script = document.createElement('script');
         script.id = 'active-companion-script';
 
@@ -330,6 +394,8 @@ function loadCompanionScript(variant, button) {
 
         script.onload = () => {
             console.log(`Loaded companion: ${variant}`);
+            // Enable playlist menu after companion is loaded
+            enablePlaylistMenu();
         };
 
         script.onerror = () => {
@@ -344,16 +410,29 @@ function loadCompanionScript(variant, button) {
     }, 100);
 }
 
+// Enable Playlist Menu
+function enablePlaylistMenu() {
+    isPlaylistEnabled = true;
+    playlistMenuBtn.classList.add('enabled');
+}
+
+// Disable Playlist Menu
+function disablePlaylistMenu() {
+    isPlaylistEnabled = false;
+    playlistMenuBtn.classList.remove('enabled');
+    playlistDropdown.classList.remove('show');
+    playlistMenuBtn.classList.remove('active');
+}
+
 companionButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         e.stopPropagation();
         const variant = button.getAttribute('data-companion');
 
-        // Toggle off if clicking active button
         if (button.classList.contains('active')) {
             removeActiveCompanion();
+            disablePlaylistMenu(); // Disable playlist when companion is removed
         } else {
-            // Load new companion (will automatically remove previous one)
             loadCompanionScript(variant, button);
         }
     });

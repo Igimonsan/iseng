@@ -19,7 +19,6 @@
     position: relative !important;
 }
 
-/* Stabilkan profile info container */
 .profile-info {
     transform: translateZ(0) rotateX(0deg) rotateY(0deg);
     backface-visibility: hidden;
@@ -28,7 +27,6 @@
     transform-style: flat !important;
 }
 
-/* Stabilkan profile image */
 .profile-image-container {
     transform: translateZ(0) rotateX(0deg) rotateY(0deg);
     backface-visibility: hidden;
@@ -42,7 +40,6 @@
     -webkit-backface-visibility: hidden;
 }
 
-/* Stabilkan flip card inner */
 .flip-card-inner {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -145,6 +142,162 @@ body {
 
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* Playlist Menu Button */
+.playlist-menu-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgba(106, 76, 212, 0.2);
+    border: 1px solid rgba(106, 76, 212, 0.4);
+    border-radius: 6px;
+    cursor: not-allowed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    z-index: 15;
+    transition: all 0.3s ease;
+    opacity: 0.4;
+}
+
+.playlist-menu-btn.enabled {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.playlist-menu-btn.enabled:hover {
+    background: rgba(106, 76, 212, 0.4);
+    border-color: rgba(106, 76, 212, 0.6);
+    transform: scale(1.05);
+}
+
+.playlist-menu-btn.active {
+    background: rgba(106, 76, 212, 0.5);
+    border-color: #6a4cd4;
+}
+
+.playlist-menu-btn span {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.playlist-menu-btn.enabled:hover span {
+    background: #6a4cd4;
+}
+
+/* Playlist Dropdown */
+.playlist-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 12px;
+    width: 200px;
+    max-height: 250px;
+    background: rgba(15, 15, 15, 0.98);
+    border: 1px solid rgba(106, 76, 212, 0.5);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.playlist-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.playlist-header {
+    padding: 10px 12px;
+    background: linear-gradient(135deg, rgba(106, 76, 212, 0.3), rgba(64, 128, 224, 0.3));
+    color: #ffffff;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(106, 76, 212, 0.3);
+}
+
+.playlist-items {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.playlist-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.playlist-items::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.playlist-items::-webkit-scrollbar-thumb {
+    background: rgba(106, 76, 212, 0.5);
+    border-radius: 3px;
+}
+
+.playlist-items::-webkit-scrollbar-thumb:hover {
+    background: rgba(106, 76, 212, 0.7);
+}
+
+.playlist-item {
+    padding: 10px 12px;
+    color: #cccccc;
+    font-size: 0.75em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.playlist-item:hover {
+    background: rgba(106, 76, 212, 0.2);
+    color: #ffffff;
+}
+
+.playlist-item.active {
+    background: linear-gradient(90deg, rgba(106, 76, 212, 0.3), rgba(64, 128, 224, 0.3));
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.playlist-item::before {
+    content: '♪';
+    font-size: 1.2em;
+    color: rgba(106, 76, 212, 0.6);
+    transition: all 0.2s ease;
+}
+
+.playlist-item.active::before {
+    color: #6a4cd4;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
     }
 }
 
@@ -426,7 +579,6 @@ body {
         font-size: 0.85em;
     }
 
-    /* Rotating Music Icon - Mobile */
     .rotating-music-icon {
         width: 35px;
         height: 35px;
@@ -434,7 +586,23 @@ body {
         left: 10px;
     }
 
-    /* Music Player - Mobile */
+    .playlist-menu-btn {
+        width: 30px;
+        height: 30px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .playlist-menu-btn span {
+        width: 14px;
+    }
+
+    .playlist-dropdown {
+        width: 180px;
+        top: 45px;
+        right: 10px;
+    }
+
     .song-title {
         font-size: 0.8em;
     }
@@ -444,7 +612,7 @@ body {
     }
 
     .progress-container {
-        margin-bottom: -50px;
+        margin-bottom: -30px;
         height: 2px;
     }
 
@@ -454,7 +622,7 @@ body {
     }
 
     #musicCard .song-title {
-        margin-top: 15px;
+        margin-top: 35px;
         margin-bottom: -5px;
         font-size: 0.8em;
         font-family: 'Orbitron', monospace;
@@ -463,12 +631,12 @@ body {
     #musicCard .song-artist {
         font-family: 'Share Tech Mono', monospace;
         margin-top: 9px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         font-size: 0.6em;
     }
 
     #musicCard .control-btn {
-        margin-bottom: -5px;
+        margin-bottom: 25px;
         width: 34px;
         height: 34px;
         font-size: 1em;
@@ -488,14 +656,13 @@ body {
         font-size: 0.85em;
     }
 
-    /* Companion Panel - Mobile */
     .companion-panel {
         gap: 9px;
         margin-top: 10px;
     }
 
     .companion-btn {
-        width: 6px;
+        width: 66px;
         height: 66px;
         padding: 3px;
         border-radius: 6px;
@@ -583,7 +750,6 @@ body {
     }
 }
 
-/* Extra small screens */
 @media (max-width: 360px) {
     .container {
         max-width: 340px;

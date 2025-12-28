@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Flip Cards</title>
     <link rel="stylesheet" href="style.css">
-    
+
 </head>
 
 <body>
@@ -17,8 +17,8 @@
         <div class="flip-card" id="profileCard">
             <div class="flip-card-inner">
                 <div class="flip-card-front profile-front">
-                    <div class="profile-image-container">
-                        <img src="Assets/img.jpg" alt="Profile" class="profile-image">
+                    <div class="profile-image-container" id="profileImageContainer">
+                        <img src="Assets/profile1.jpeg" alt="Profile" class="profile-image" id="profileImage">
                     </div>
                     <div class="profile-info">
                         <div class="profile-name">Igimonsan</div>
@@ -33,6 +33,11 @@
         <div class="flip-card" id="musicCard">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
+                    <!-- Rotating Music Icon -->
+                    <div class="rotating-music-icon">
+                        <img src="Assets/music_logo.jpeg" alt="Music Icon">
+                    </div>
+
                     <div class="music-player">
                         <div class="song-info">
                             <div class="song-title" id="songTitle">Space Odyssey</div>
@@ -101,7 +106,7 @@
 
     <audio id="audioPlayer" preload="metadata"></audio>
     <script src="script.js"></script>
-    <script src="spectre.js"></script>  <!-- Tambahkan ini -->
+    <script src="spectre.js"></script>
 </body>
 
 </html>

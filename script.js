@@ -56,6 +56,33 @@ window.addEventListener('resize', () => {
     canvas.height = window.innerHeight;
 });
 
+// Profile Image Changer
+const profileImage = document.getElementById('profileImage');
+const profileImageContainer = document.getElementById('profileImageContainer');
+let currentProfileIndex = 1;
+const totalProfileImages = 10; // Sesuaikan dengan jumlah gambar yang kamu punya
+
+profileImageContainer.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    // Next image
+    currentProfileIndex++;
+    if (currentProfileIndex > totalProfileImages) {
+        currentProfileIndex = 1;
+    }
+
+    // Change image with fade effect
+    profileImage.style.opacity = '0';
+
+    setTimeout(() => {
+        profileImage.src = `Assets/profile${currentProfileIndex}.jpeg`;
+        profileImage.style.opacity = '1';
+    }, 200);
+});
+
+// Add cursor pointer style
+profileImageContainer.style.cursor = 'pointer';
+
 // 3D Tilt Effect for Desktop
 const profileCard = document.getElementById('profileCard');
 const musicCard = document.getElementById('musicCard');
@@ -331,4 +358,3 @@ companionButtons.forEach(button => {
         }
     });
 });
-

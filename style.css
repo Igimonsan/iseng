@@ -2,6 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Disable tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #spectrum-canvas {
@@ -54,6 +61,9 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    /* Additional mobile tap prevention */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
 }
 
 #particles-canvas {
@@ -81,6 +91,8 @@ body {
     perspective: 1500px;
     cursor: pointer;
     transition: transform 0.3s ease-out;
+    /* Disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .flip-card:hover {
@@ -165,6 +177,9 @@ body {
     z-index: 15;
     transition: all 0.3s ease;
     opacity: 0.4;
+    /* Disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 .playlist-menu-btn.enabled {
@@ -202,7 +217,6 @@ body {
     top: 50px;
     right: 12px;
     width: 200px;
-    max-height: 250px;
     background: rgba(15, 15, 15, 0.98);
     border: 1px solid rgba(106, 76, 212, 0.5);
     border-radius: 8px;
@@ -233,7 +247,7 @@ body {
 }
 
 .playlist-items {
-    max-height: 200px;
+    max-height: 160px;
     overflow-y: auto;
 }
 
@@ -264,6 +278,8 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    /* Disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .playlist-item:hover {
@@ -326,6 +342,8 @@ body {
 .profile-image-container {
     flex-shrink: 0;
     cursor: pointer;
+    /* Disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .profile-image-container:hover .profile-image {
@@ -393,6 +411,8 @@ body {
     border-radius: 2px;
     overflow: hidden;
     cursor: pointer;
+    /* Disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
 }
 
 .progress-bar {
@@ -433,6 +453,9 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 5px 15px rgba(106, 76, 212, 0.5);
+    /* Disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 .control-btn:hover {
@@ -482,6 +505,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Disable tap highlight */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 .companion-btn:hover {
@@ -612,7 +638,7 @@ body {
     }
 
     .progress-container {
-        margin-bottom: -30px;
+        margin-bottom: -50px;
         height: 2px;
     }
 
@@ -622,7 +648,7 @@ body {
     }
 
     #musicCard .song-title {
-        margin-top: 35px;
+        margin-top: 15px;
         margin-bottom: -5px;
         font-size: 0.8em;
         font-family: 'Orbitron', monospace;
@@ -631,12 +657,12 @@ body {
     #musicCard .song-artist {
         font-family: 'Share Tech Mono', monospace;
         margin-top: 9px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         font-size: 0.6em;
     }
 
     #musicCard .control-btn {
-        margin-bottom: 25px;
+        margin-bottom: -5px;
         width: 34px;
         height: 34px;
         font-size: 1em;

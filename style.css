@@ -326,14 +326,21 @@ body {
     }
 
     .container {
-        max-width: 420px;
-        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 150%;
+        max-width: 340px;
+        height: 100vh;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 150px;
     }
 
     #spectrum-canvas {
-        width: 100% !important;
+        width: 120px !important;
         height: 35px !important;
-        margin-left: 6.8px !important;
+        margin-left: -28.5px !important;
         display: block !important;
         transform: translateZ(0) rotateX(0deg) rotateY(0deg) !important;
         backface-visibility: hidden !important;
@@ -358,26 +365,26 @@ body {
     .flip-card-front {
         padding: 24px;
     }
-
-    /* Profile Card - Mobile */
+    
     .profile-image {
-        width: 120px;
-        height: 120px;
+        margin-right: 25px;
+        transform: scale(0.95);
+        transform-origin: left center;
     }
 
     .profile-name {
-        margin-left: 37px;
+        margin-left: -20px;
         font-size: 1.4em;
     }
 
     .profile-title {
-        margin-left: 49px;
+        margin-left: -10px;
         font-size: 0.85em;
     }
 
     /* Music Player - Mobile */
     .song-title {
-        font-size: 1.1em;
+        font-size: 0.8em;
     }
 
     .song-artist {
@@ -385,28 +392,44 @@ body {
     }
 
     .progress-container {
-        height: 5px;
+        margin-bottom: -50px;
+        height: 2px;
     }
 
     .time-display {
-        font-size: 0.85em;
-        margin-top: 6px;
+        font-size: 0.65em;
+        margin-top: 35px;
     }
 
-    .control-btn {
-        width: 44px;
-        height: 44px;
+    #musicCard .song-title {
+        margin-top: 15px;
+        margin-bottom: -5px;
+        font-size: 0.8em;
+        font-family: 'Orbitron', monospace;
+    }
+
+    #musicCard .song-artist {
+        font-family: 'Share Tech Mono', monospace;
+        margin-top: 9px;
+        margin-bottom: 20px;
+        font-size: 0.6em;
+    }
+
+    #musicCard .control-btn {
+        margin-bottom: -5px;
+        width: 34px;
+        height: 34px;
         font-size: 1em;
     }
 
-    .control-btn.play-pause {
-        width: 56px;
-        height: 56px;
-        font-size: 1.3em;
+    #musicCard .control-btn.play-pause {
+        width: 36px;
+        height: 36px;
+        font-size: 1.0em;
     }
 
     .controls {
-        gap: 20px;
+        gap: 18px;
     }
 
     .error-message {
@@ -415,17 +438,29 @@ body {
 
     /* Companion Panel - Mobile */
     .companion-panel {
-        gap: 10px;
-        margin-top: 15px;
+        gap: 9px;
+        margin-top: 10px;
+        /* panel lebih compact */
     }
 
     .companion-btn {
-        width: 50px;
-        height: 50px;
+        width: 6px;
+        height: 66px;
+        padding: 3px;
+        /* optional, supaya isi proporsional */
+        border-radius: 6px;
+        /* tetap rapi */
     }
 
     .companion-btn-fallback {
-        font-size: 1.5em;
+        font-size: 1.2em;
+        /* proporsional dengan tombol */
+    }
+
+    .flip-card {
+        aspect-ratio: unset !important;
+        width: 75%;
+        height: 130px;
     }
 }
 

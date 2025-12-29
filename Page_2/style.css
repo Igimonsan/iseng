@@ -4,6 +4,20 @@
        box-sizing: border-box;
    }
 
+   .profile h1 {
+       font-family: 'Cormorant Garamond', serif;
+       font-weight: 600;
+       letter-spacing: 2px;
+       text-transform: uppercase;
+   }
+
+   .profile p {
+       font-family: 'Inter', sans-serif;
+       font-size: 0.95rem;
+       letter-spacing: 0.08em;
+       opacity: 0.7;
+   }
+
    body {
        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
        background: linear-gradient(135deg, #000000 0%, #1a0033 50%, #001a33 100%);
@@ -92,7 +106,7 @@
        color: #b8b8b8;
        font-size: 16px;
    }
-   
+
 
    .links {
        display: flex;
@@ -210,10 +224,10 @@
            font-size: 15px;
        }
 
-                 .profile-image {
-                     width: 165px !important;
-                     height: 165px !important;
-                 }
+       .profile-image {
+           width: 165px !important;
+           height: 165px !important;
+       }
 
        .link-item {
            font-size: 17px;
@@ -253,4 +267,120 @@
        .link-icon {
            font-size: 24px;
        }
+   }
+
+   /* Tambahkan CSS ini ke file style.css Anda */
+
+   .profile-image {
+       position: relative;
+       overflow: hidden;
+   }
+
+   .profile-image img {
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+       opacity: 0;
+   }
+
+   .profile-image img.active {
+       opacity: 1;
+   }
+
+   /* Animasi Fade In/Out */
+   @keyframes fadeIn {
+       from {
+           opacity: 0;
+       }
+
+       to {
+           opacity: 1;
+       }
+   }
+
+   @keyframes fadeOut {
+       from {
+           opacity: 1;
+       }
+
+       to {
+           opacity: 0;
+       }
+   }
+
+   .profile-image img.fade-in {
+       animation: fadeIn 0.5s ease-in;
+   }
+
+   .profile-image img.fade-out {
+       animation: fadeOut 0.5s ease-out;
+   }
+
+   /* Animasi Swipe Right */
+   @keyframes swipeRight {
+       from {
+           transform: translateX(-100%);
+           opacity: 0;
+       }
+
+       to {
+           transform: translateX(0);
+           opacity: 1;
+       }
+   }
+
+   @keyframes swipeRightOut {
+       from {
+           transform: translateX(0);
+           opacity: 1;
+       }
+
+       to {
+           transform: translateX(100%);
+           opacity: 0;
+       }
+   }
+
+   .profile-image img.swipe-right {
+       animation: swipeRight 0.5s ease-out;
+   }
+
+   .profile-image img.swipe-right-out {
+       animation: swipeRightOut 0.5s ease-out;
+   }
+
+   /* Animasi Swipe Left */
+   @keyframes swipeLeft {
+       from {
+           transform: translateX(100%);
+           opacity: 0;
+       }
+
+       to {
+           transform: translateX(0);
+           opacity: 1;
+       }
+   }
+
+   @keyframes swipeLeftOut {
+       from {
+           transform: translateX(0);
+           opacity: 1;
+       }
+
+       to {
+           transform: translateX(-100%);
+           opacity: 0;
+       }
+   }
+
+   .profile-image img.swipe-left {
+       animation: swipeLeft 0.5s ease-out;
+   }
+
+   .profile-image img.swipe-left-out {
+       animation: swipeLeftOut 0.5s ease-out;
    }

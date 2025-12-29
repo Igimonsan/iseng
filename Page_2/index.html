@@ -4,30 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Igimonsan Social Media</title>
+    <title>Igimonsan - Dark Luxury Portfolio</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts: Cormorant Garamond (Serif Premium) + Inter (Sans-serif Modern) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?
-family=Cormorant+Garamond:wght@500;600;700&
-family=Inter:wght@400;500&
-display=swap" rel="stylesheet">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <!-- Starfield Background Effect -->
     <div class="stars"></div>
 
+    <!-- Main Container -->
     <div class="container">
+
+        <!-- Profile Section -->
         <div class="profile">
             <div class="profile-image">
-                <img src="Img/Profile/profile.jpeg" alt="Profile Image">
+                <img src="Img/Profile/profile.jpeg" alt="Igimonsan Profile" class="active">
             </div>
-            <h1>IGIMONSAN</h1>
-            <p>Mau kenalan lebih jauh?</p>
+            <h1 class="profile-name">IGIMONSAN</h1>
+
+            <!-- Role/Identity Badge -->
+            <div class="role-badge">
+                <span class="role-dot"></span>
+                <span class="role-text">Orang gabut</span>
+            </div>
+
+            <p class="profile-tagline">Mau kenalan lebih jauh?</p>
         </div>
 
+        <!-- Elegant Divider -->
+        <div class="divider">
+            <span class="divider-ornament">◆</span>
+        </div>
+
+        <!-- Featured/Primary Link (Optional - Uncomment to use) -->
+        <!-- <a href="#" class="featured-link" target="_blank">
+            <div class="featured-content">
+                <span class="featured-icon">✦</span>
+                <div class="featured-text">
+                    <span class="featured-title">Latest Project</span>
+                    <span class="featured-subtitle">Lihat karya terbaru saya</span>
+                </div>
+            </div>
+        </a> -->
+
+        <!-- Social Media Links -->
         <div class="links">
             <a href="https://discord.com/users/557481986747269121" class="link-item" target="_blank"
                 data-platform="Discord">
@@ -38,6 +65,7 @@ display=swap" rel="stylesheet">
                     </svg>
                 </span>
                 <span class="link-text">Discord</span>
+                <span class="link-arrow">→</span>
             </a>
 
             <a href="https://wa.me/6289519705542" class="link-item" target="_blank" data-platform="WhatsApp">
@@ -48,6 +76,7 @@ display=swap" rel="stylesheet">
                     </svg>
                 </span>
                 <span class="link-text">WhatsApp</span>
+                <span class="link-arrow">→</span>
             </a>
 
             <a href="https://www.facebook.com/share/1ASPNNWwY6/" class="link-item" target="_blank"
@@ -59,6 +88,7 @@ display=swap" rel="stylesheet">
                     </svg>
                 </span>
                 <span class="link-text">Facebook</span>
+                <span class="link-arrow">→</span>
             </a>
 
             <a href="https://instagram.com/thefoxnation_xml" class="link-item" target="_blank"
@@ -78,6 +108,7 @@ display=swap" rel="stylesheet">
                     </svg>
                 </span>
                 <span class="link-text">Instagram</span>
+                <span class="link-arrow">→</span>
             </a>
 
             <a href="https://threads.net/@thefoxnation_xml" class="link-item" target="_blank" data-platform="Threads">
@@ -88,8 +119,36 @@ display=swap" rel="stylesheet">
                     </svg>
                 </span>
                 <span class="link-text">Threads</span>
+                <span class="link-arrow">→</span>
             </a>
         </div>
+
+        <!-- Elegant Divider -->
+        <div class="divider">
+            <span class="divider-ornament">◆</span>
+        </div>
+
+        <!-- Micro About Section -->
+        <div class="about-section">
+            <h3 class="about-title">About Me</h3>
+            <p class="about-text">
+                Hanya manusia biasa yang menyukai kebebasan
+                "Manusia adalah makhluk bebas, namun masih dalam
+                bingkai kebenaran dan kewajiban"
+            </p>
+        </div>
+
+        <!-- Closing Quote -->
+        <div class="quote-section">
+            <p class="quote-text">"Freedom is justice for everyone"</p>
+            <span class="quote-author">— Igimonsan</span>
+        </div>
+
+        <!-- Minimal Footer -->
+        <footer class="footer">
+            <p class="footer-text">© 2024 Igimonsan. Manusia gabut.</p>
+        </footer>
+
     </div>
 
     <script src="script.js"></script>

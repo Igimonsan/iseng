@@ -73,7 +73,7 @@ profileImageContainer.addEventListener('click', (e) => {
     profileImage.style.opacity = '0';
 
     setTimeout(() => {
-        profileImage.src = `Assets/profile${currentProfileIndex}.jpeg`;
+        profileImage.src = `Assets/Profile Image/profile${currentProfileIndex}.jpeg`;
         profileImage.style.opacity = '1';
     }, 200);
 });
@@ -164,10 +164,10 @@ let currentSongIndex = 0;
 let isPlaylistEnabled = false; // Track if playlist is enabled
 
 const playlist = [
-    { title: 'Space Odyssey', file: 'Assets/lagu.mp3' },
-    { title: 'Acido', file: 'Assets/lagu2.mp3' },
-    { title: 'Lunar Waves', file: 'Assets/lagu3.mp3' },
-    { title: 'Amor na praia', file: 'Assets/lagu4.mp3' }
+    { title: 'Space Odyssey', file: 'Assets/Music/lagu.mp3' },
+    { title: 'Acido', file: 'Assets/Music/lagu2.mp3' },
+    { title: 'Lunar Waves', file: 'Assets/Music/lagu3.mp3' },
+    { title: 'Amor na praia', file: 'Assets/Music/lagu4.mp3' }
 ];
 
 // Generate Playlist Items

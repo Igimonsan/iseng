@@ -967,15 +967,18 @@ body::after {
     .companion-btn-fallback {
         font-size: 1.2em;
     }
+    
 
     .flip-card {
         aspect-ratio: unset !important;
         width: 75%;
         height: 130px;
+        transition: transform 1.84s cubic-bezier(0.4, 0, 0.2, 1);
         overflow: visible !important;
     }
 
     .flip-card-inner {
+        transition: transform 1.75s cubic-bezier(0.34, 1.56, 0.64, 1);
         overflow: visible !important;
     }
 
